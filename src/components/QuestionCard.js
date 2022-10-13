@@ -2,7 +2,7 @@ import React from 'react'
 
 function QuestionCard() {
   return (
-    <article className="flex select-none flex-col gap-4 md:rounded-md border p-4">
+    <article className="flex select-none flex-col gap-4 md:rounded-md border md:shadow-md p-4">
       <div className="flex items-center gap-2 justify-between">
         <span className="text-sm text-teal-400">@alejandro.js</span>
         <p className="font-semibold text-sm md:text-lg text-center">Should i go to the beach tomorrow midnight?</p>
