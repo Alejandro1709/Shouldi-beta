@@ -1,10 +1,11 @@
 import React from 'react'
+import Container from './components/Container'
 import Navbar from './components/Navbar'
 import QuestionCard from './components/QuestionCard'
 
 function App() {
   return (
-    <div className='container mx-auto'>
+    <Container>
       <Navbar />
       <div className='flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-4 md:mt-4'>
         <QuestionCard />
@@ -12,7 +13,7 @@ function App() {
         <QuestionCard />
         <QuestionCard />
       </div>
-    </div>
+    </Container>
   )
 }
 
