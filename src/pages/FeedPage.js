@@ -1,13 +1,13 @@
 import React from 'react'
-import QuestionCard from '../components/QuestionCard'
+import QuestionList from '../components/QuestionList'
 
 function FeedPage() {
   return (
-    <div className='flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-4 '>
-      <QuestionCard />
-      <QuestionCard />
-      <QuestionCard />
-      <QuestionCard />
+    <div className=''>
+      <div className='flex justify-center items-center my-4'>
+        <button className='border-2 border-teal-400 text-teal-400 hover:bg-teal-400 hover:text-white font-bold p-4 w-full mx-4 md:mx-0 rounded-md cursor-pointer'>Ask Question</button>
+      </div>
+      <QuestionList />
     </div>
   )
 }
