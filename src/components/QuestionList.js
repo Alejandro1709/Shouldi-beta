@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { questions } from '../data'
+import React, {useContext} from 'react'
+import { QuestionContext } from '../context/questionContext'
 import QuestionCard from './QuestionCard'
 
 function QuestionList() {
-  const [allQuestions] = useState(questions)
+  const {state} = useContext(QuestionContext)
   return (
     <div className='flex flex-col gap-4 md:grid md:grid-cols-2 md:gap-4 '>
-      {allQuestions.map((question) => (
+      {state.questions.map((question) => (
         <QuestionCard key={question.id} question={question} />
       ))}
     </div>
