@@ -5,6 +5,8 @@ import QuestionCard from './QuestionCard'
 function QuestionList() {
   const { state } = useContext(QuestionContext)
 
+  console.log(state)
+  
   if (state.status === 'loading') return <p>Loading...</p>
 
   return (
