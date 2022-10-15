@@ -1,6 +1,7 @@
 import React, { useEffect, createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import questionsReducer from '../reducers/questionReducer'
+import { handleFetchQuestions } from '../actions/questionActions'
 
 const initialState = {
   status: 'idle',
@@ -13,13 +14,7 @@ function QuestionProvider({ children }) {
   const [state, dispatch] = useReducer(questionsReducer, initialState)
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_QUESTIONS' })
-
-    fetch('https://shouldi-api.onrender.com/api/v1/questions').then((res) => res.json()).then((data) => {
-      dispatch({ type: 'FETCH_QUESTIONS_SUCCESS', payload: data })
-    }).catch((err) => {
-      dispatch({ type: 'FETCH_QUESTIONS_ERROR', payload: err })
-    })
+    handleFetchQuestions(dispatch)
   }, [])
 
   return (
