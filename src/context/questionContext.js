@@ -1,18 +1,22 @@
-import React, { createContext, useReducer } from 'react'
-import { questions } from '../data'
+import React, { useEffect, createContext, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import questionsReducer from '../reducers/questionReducer'
+import { handleFetchQuestions } from '../actions/questionActions'
 
 const initialState = {
   status: 'idle',
-  questions: questions,
+  data: [],
   error: null,
 }
 
 const QuestionContext = createContext(initialState)
-
 function QuestionProvider({ children }) {
   const [state, dispatch] = useReducer(questionsReducer, initialState)
+
+  useEffect(() => {
+    handleFetchQuestions(dispatch)
+  }, [])
+
   return (
     <QuestionContext.Provider value={{state, dispatch}}>
       {children}

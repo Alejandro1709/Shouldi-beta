@@ -5,7 +5,7 @@ export default function questionsReducer(state, action) {
   case FETCH_QUESTIONS:
     return { ...state, status: 'loading' }
   case FETCH_QUESTIONS_SUCCESS:
-    return { ...state, status: 'success', questions: action.payload }
+    return { ...state, status: 'success', data: action.payload }
   case FETCH_QUESTIONS_ERROR:
     return { ...state, status: 'error', error: action.payload }
   default:
