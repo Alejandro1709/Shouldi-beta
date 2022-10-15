@@ -4,7 +4,7 @@ export const handleFetchQuestions = async (dispatch) => {
   dispatch({ type: FETCH_QUESTIONS })
 
   try {
-    const response = await fetch('/api/v1/questions')
+    const response = await fetch('https://shouldi-api.onrender.com/api/v1/questions')
     const data = await response.json()
 
     dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: data })
@@ -25,7 +25,7 @@ export const handleCreateQuestion = async (dataa, dispatch) => {
       body: JSON.stringify(dataa)
     }
 
-    const response = await fetch('/api/v1/questions', config)
+    const response = await fetch('https://shouldi-api.onrender.com/api/v1/questions', config)
     const data = await response.json()
 
     dispatch({ type: CREATE_QUESTION_SUCCESS, payload: [data] })
