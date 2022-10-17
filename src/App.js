@@ -6,6 +6,8 @@ import Container from './components/Container'
 import Navbar from './components/Navbar'
 import Modal from './components/Modal'
 import CreateQuestionForm from './components/CreateQuestionForm'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -19,7 +21,8 @@ function App() {
         <Navbar />
         <div className='md:mt-4'>
           <Route path='/' component={FeedPage} />
-          <Route path='/account'>Profile</Route>
+          <Route path='/login' component={LoginPage} />
+          <Route path='/register' component={RegisterPage} />
         </div>
       </ModalProvider>
     </Container>
