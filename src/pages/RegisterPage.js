@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'wouter'
+import Input from '../components/Input'
 
 function RegisterPage() {
   return (
@@ -12,19 +13,23 @@ function RegisterPage() {
       <form className='flex flex-col gap-4 w-full'>
         <div className='flex flex-col gap-2'>
           <label htmlFor='name'>Name</label>
-          <input className='p-2 rounded-md' type='text' name='name' id='name' placeholder='John Doe'/>
+          <Input id='name' name='name' placeholder='John Doe' />
         </div>
         <div className='flex flex-col gap-2'>
           <label htmlFor='username'>Username</label>
-          <input className='p-2 rounded-md' type='text' name='username' id='username' placeholder='johndoe87'/>
+          <Input id='username' name='username' placeholder='johndoe87' />
         </div>
         <div className='flex flex-col gap-2'>
           <label htmlFor='email'>Email</label>
-          <input className='p-2 rounded-md' type='email' name='email' id='email' placeholder='youremail@email.com'/>
+          <Input type='email' id='email' name='email' placeholder='youremail@email.com' />
         </div>
         <div className='flex flex-col gap-2'>
           <label htmlFor='password'>Password</label>
-          <input className='p-2 rounded-md' type='password' name='password' id='password' placeholder='******'/>
+          <Input type='password' id='password' name='password' placeholder='******' />
+        </div>
+        <div className='flex flex-col gap-2'>
+          <label htmlFor='passwordConfirm'>Confirm Password</label>
+          <Input type='password' id='passwordConfirm' placeholder='******' />
         </div>
         <button className='bg-teal-400 p-2 rounded-md text-white hover:bg-teal-500 cursor-pointer' type='submit'>Create Account</button>
       </form>
