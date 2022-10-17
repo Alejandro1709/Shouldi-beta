@@ -1,4 +1,39 @@
-import { FETCH_QUESTIONS, CREATE_QUESTION, FETCH_QUESTIONS_SUCCESS, FETCH_QUESTIONS_ERROR, CREATE_QUESTION_FAIL, CREATE_QUESTION_SUCCESS } from '../constants/questionConstants'
+import { 
+  FETCH_QUESTIONS,
+  CREATE_QUESTION,
+  FETCH_QUESTIONS_SUCCESS,
+  FETCH_QUESTIONS_ERROR,
+  CREATE_QUESTION_FAIL,
+  CREATE_QUESTION_SUCCESS,
+  LOGIN_USER,
+  LOGIN_USER_FAIL,
+  LOGIN_USER_SUCCESS } from '../constants/questionConstants'
+
+export const handleLogin = (formData, dispatch) => {
+  return new Promise((resolve, reject) => {
+    dispatch({ type: LOGIN_USER })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(formData),
+    }
+
+    fetch('https://shouldi-api.onrender.com/api/v1/auth/login', config)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({ type: LOGIN_USER_SUCCESS, payload: data })
+        resolve(data)
+      })
+      .catch((error) => {
+        console.error(error)
+        dispatch({ type: LOGIN_USER_FAIL, payload: error })
+        reject(error)
+      })
+  })
+}
 
 export const handleFetchQuestions = async (dispatch) => {
   dispatch({ type: FETCH_QUESTIONS })
