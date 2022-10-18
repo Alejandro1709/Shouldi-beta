@@ -41,6 +41,7 @@ function LoginPage() {
       if (data.status === 'fail') {
         setError(data.message)
         setLoading(false)
+        return
       }
       setLocation('/')
     }).catch((err) => {

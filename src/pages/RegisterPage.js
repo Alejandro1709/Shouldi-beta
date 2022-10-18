@@ -49,6 +49,7 @@ function RegisterPage() {
       if (data.status === 'fail' || data.status === 'error') {
         setError(data.message)
         setLoading(false)
+        return
       }
       setLocation('/')
     }).catch((err) => {
