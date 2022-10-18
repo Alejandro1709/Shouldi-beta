@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://shouldi-api.onrender.com'
+export const BASE_URL = 'https://autumn-frost-7391.fly.dev'

@@ -1,8 +1,32 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { UserContext } from '../context/userContext'
 import { Link } from 'wouter'
+
+const loggedLinks = () => {
+  return <>
+    <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      Feed
+    </Link>
+    <Link to="/account" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      Account
+    </Link>
+  </>
+}
+const notLoggedLinks = () => {
+  return <>
+    <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+    Feed
+    </Link>
+    <Link to="/login" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+    Login
+    </Link>
+  </>
+}
 
 function Navbar() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
+
+  const { state } = useContext(UserContext)
 
   return (
     <>
@@ -15,16 +39,11 @@ function Navbar() {
             <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
           </button>
         </div>
-        {isNavbarOpen ? <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
-            <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-              Feed
-            </Link>
-            <Link to="/account" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-              Account
-            </Link>
+            {state.data ? loggedLinks() : notLoggedLinks()}
           </div>
-        </div> : null}
+        </div> 
       </nav>
     </>
   )
