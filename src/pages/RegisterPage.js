@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Link, useLocation } from 'wouter'
-import { handleRegister } from '../actions/questionActions'
+import { handleRegister } from '../actions/userActions'
 import Input from '../components/Input'
 import { QuestionContext } from '../context/questionContext'
 
