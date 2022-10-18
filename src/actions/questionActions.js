@@ -7,7 +7,12 @@ import {
   CREATE_QUESTION_SUCCESS,
   LOGIN_USER,
   LOGIN_USER_FAIL,
-  LOGIN_USER_SUCCESS } from '../constants/questionConstants'
+  LOGIN_USER_SUCCESS, 
+  REGISTER_USER,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAIL
+} from '../constants/questionConstants'
+import { BASE_URL } from '../config'
 
 export const handleLogin = (formData, dispatch) => {
   return new Promise((resolve, reject) => {
@@ -21,9 +26,10 @@ export const handleLogin = (formData, dispatch) => {
       body: JSON.stringify(formData),
     }
 
-    fetch('https://shouldi-api.onrender.com/api/v1/auth/login', config)
+    fetch(`${BASE_URL}/api/v1/auth/login`, config)
       .then((res) => res.json())
       .then((data) => {
+        sessionStorage.setItem('user', JSON.stringify(data))
         dispatch({ type: LOGIN_USER_SUCCESS, payload: data })
         resolve(data)
       })
@@ -35,11 +41,38 @@ export const handleLogin = (formData, dispatch) => {
   })
 }
 
+export const handleRegister = (formData, dispatch) => {
+  return new Promise((resolve, reject) => {
+    dispatch({ type: REGISTER_USER })
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(formData),
+    }
+
+    fetch(`${BASE_URL}/api/v1/users/`, config)
+      .then((res) => res.json())
+      .then((data) => {
+        sessionStorage.setItem('user', JSON.stringify(data))
+        dispatch({ type: REGISTER_USER_SUCCESS, payload: data })
+        resolve(data)
+      })
+      .catch((error) => {
+        console.error(error)
+        dispatch({ type: REGISTER_USER_FAIL, payload: error })
+        reject(error)
+      })
+  })
+}
+
 export const handleFetchQuestions = async (dispatch) => {
   dispatch({ type: FETCH_QUESTIONS })
 
   try {
-    const response = await fetch('https://shouldi-api.onrender.com/api/v1/questions')
+    const response = await fetch(`${BASE_URL}/api/v1/questions`)
     const data = await response.json()
 
     dispatch({ type: FETCH_QUESTIONS_SUCCESS, payload: data })
@@ -48,7 +81,7 @@ export const handleFetchQuestions = async (dispatch) => {
   }
 }
 
-export const handleCreateQuestion = async (dataa, dispatch) => {
+export const handleCreateQuestion = async (dataa, state, dispatch) => {
   dispatch({ type: CREATE_QUESTION })
 
   try {
@@ -60,8 +93,10 @@ export const handleCreateQuestion = async (dataa, dispatch) => {
       body: JSON.stringify(dataa)
     }
 
-    const response = await fetch('https://shouldi-api.onrender.com/api/v1/questions', config)
+    const response = await fetch(`${BASE_URL}/api/v1/questions`, config)
     const data = await response.json()
+
+    console.log(state)
 
     dispatch({ type: CREATE_QUESTION_SUCCESS, payload: [data] })
 

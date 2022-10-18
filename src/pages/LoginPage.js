@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'wouter'
+import { Link, useLocation } from 'wouter'
 import { handleLogin } from '../actions/questionActions'
 import Input from '../components/Input'
 import { QuestionContext } from '../context/questionContext'
@@ -14,6 +14,8 @@ function LoginPage() {
 
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
+
+  const [, setLocation] = useLocation()
 
   const handleChange = (e) => {
     setFormData({
@@ -40,7 +42,7 @@ function LoginPage() {
         setError(data.message)
         setLoading(false)
       }
-      console.log(data)
+      setLocation('/')
     }).catch((err) => {
       setError(err.message)
       setLoading(false)
