@@ -21,13 +21,16 @@ export const handleFetchQuestions = async (dispatch) => {
   }
 }
 
-export const handleCreateQuestion = async (dataa, state, dispatch) => {
+export const handleCreateQuestion = async (dataa, dispatch, state) => {
   dispatch({ type: CREATE_QUESTION })
+
+  const user = JSON.parse(sessionStorage.getItem('user'))
 
   try {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`
       },
       method: 'POST',
       body: JSON.stringify(dataa)
@@ -36,9 +39,7 @@ export const handleCreateQuestion = async (dataa, state, dispatch) => {
     const response = await fetch(`${BASE_URL}/api/v1/questions`, config)
     const data = await response.json()
 
-    console.log(state)
-
-    dispatch({ type: CREATE_QUESTION_SUCCESS, payload: [data] })
+    dispatch({ type: CREATE_QUESTION_SUCCESS, payload: [...state.data, data] })
 
     return data
 

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useRef } from 'react'
 import { handleCreateQuestion } from '../actions/questionActions'
 import ModalContext from '../context/modalContext'
-import {QuestionContext} from '../context/questionContext'
+import { QuestionContext } from '../context/questionContext'
 
 function CreateQuestionForm() {
   const [formData, setFormData] = useState({
@@ -11,14 +11,14 @@ function CreateQuestionForm() {
     downvotes: 1,
   })
 
-  const [state, setState] = useState({
+  const [questionState, setQuestionState] = useState({
     status: 'idle',
     isSubmitting: false,
     error: null
   })
 
   const { setIsModalOpen } = useContext(ModalContext)
-  const { dispatch } = useContext(QuestionContext)
+  const { state, dispatch } = useContext(QuestionContext)
 
   const buttonRef = useRef()
 
@@ -39,27 +39,32 @@ function CreateQuestionForm() {
     e.preventDefault()
 
     if (!formData.title || !formData.content) {
-      setState({
+      setQuestionState({
         status: 'error',
         error: 'Please fill out all fields'
       })
       return
     }
 
-    setState({ ...state, isSubmitting: true })
+    setQuestionState({ ...questionState, isSubmitting: true })
 
-    handleCreateQuestion(formData, dispatch).then((data) => {
+    handleCreateQuestion(formData, dispatch, state).then((data) => {
+      if (data.status === 'fail') {
+        setQuestionState({ status: 'error', error: data.message })
+        return
+      }
       console.log(data)
+      setIsModalOpen(false)
     }).catch((err) => {
       console.log(err)
-      setState({ status: 'error', error: err.message })
+      setQuestionState({ status: 'error', error: err.message })
     })
 
   }
 
   return (
     <div className='bg-white md:w-3/12 w-3/4 rounded-lg'>
-      {state.status === 'error' ? <p className='text-red-500'>{state.error}</p> : null}
+      {questionState.status === 'error' ? <p className='text-red-500'>{questionState.error}</p> : null}
       <div className='flex flex-col gap-4 p-6 items-start'>
         <button className='p-2 bg-teal-100 hover:bg-teal-200 rounded-lg' data-id='close-btn' onClick={handleCloseModal} ref={buttonRef}>Close</button>
         <form className='flex flex-col gap-4 w-full' onSubmit={handleSubmit}>
