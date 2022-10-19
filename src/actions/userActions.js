@@ -58,5 +58,5 @@ export const handleRegister = (formData, dispatch) => {
 export const handleLogout = (dispatch) => {
   sessionStorage.removeItem('user')
 
-  dispatch({ type: LOGOUT_USER })
+  dispatch({ type: LOGOUT_USER, payload: { data: null} })
 }

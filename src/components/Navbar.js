@@ -1,24 +1,40 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/userContext'
-import { Link } from 'wouter'
+import { LOGOUT_USER } from '../constants/userConstants'
+import { Link, useLocation } from 'wouter'
+import PropTypes from 'prop-types'
 
-const loggedLinks = () => {
+function LoggedLinks({dispatch}) {
+
+  const [, setLocation] = useLocation()
+
+  LoggedLinks.propTypes = {
+    dispatch: PropTypes.func.isRequired
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem('user')
+    dispatch({ type: LOGOUT_USER })
+    setLocation('/login')
+  }
+
   return <>
     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
       Feed
     </Link>
-    <button className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+    <button className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" onClick={handleLogout}>
       Logout
     </button>
   </>
 }
-const notLoggedLinks = () => {
+
+function NotLoggedLinks() {
   return <>
     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-    Feed
+      Feed
     </Link>
     <Link to="/login" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-    Login
+      Login
     </Link>
   </>
 }
@@ -26,7 +42,7 @@ const notLoggedLinks = () => {
 function Navbar() {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false)
 
-  const { state } = useContext(UserContext)
+  const { state, dispatch } = useContext(UserContext)
 
   return (
     <>
@@ -41,7 +57,7 @@ function Navbar() {
         </div>
         <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
           <div className="text-sm lg:flex-grow">
-            {state.data ? loggedLinks() : notLoggedLinks()}
+            {state.data ? <LoggedLinks dispatch={dispatch}/> : <NotLoggedLinks />}
           </div>
         </div> 
       </nav>
