@@ -8,6 +8,7 @@ import Modal from './components/Modal'
 import CreateQuestionForm from './components/CreateQuestionForm'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import EditPage from './pages/EditPage'
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -23,7 +24,7 @@ function App() {
           <Route path='/' component={FeedPage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
-          <Route path='/:slug/edit'>Edit</Route>
+          <Route path='/:slug/edit' component={EditPage}/>
         </div>
       </ModalProvider>
     </Container>
