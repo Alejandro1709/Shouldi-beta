@@ -37,11 +37,12 @@ function EditPage() {
     setLoading(true)
 
     handleUpdateQuestion(slug, dispatch, formData).then((data) => {
-      if (data.status === 'fail' || data.status === 'error') {
-        setError(data.message)
-        setLoading(false)
-        return
-      }
+      console.log(data)
+      // if (data.status === 'fail' || data.status === 'error') {
+      //   setError(data.message)
+      //   setLoading(false)
+      //   return
+      // }
       setLoading(false)
       setLocation('/')
     })
