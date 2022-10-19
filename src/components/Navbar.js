@@ -7,9 +7,9 @@ const loggedLinks = () => {
     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
       Feed
     </Link>
-    <Link to="/account" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-      Account
-    </Link>
+    <button className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      Logout
+    </button>
   </>
 }
 const notLoggedLinks = () => {

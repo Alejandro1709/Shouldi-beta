@@ -1,5 +1,5 @@
 import { BASE_URL } from '../config'
-import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL } from '../constants/userConstants'
+import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, REGISTER_USER, REGISTER_USER_SUCCESS, REGISTER_USER_FAIL, LOGOUT_USER } from '../constants/userConstants'
 
 export const handleLogin = (formData, dispatch) => {
   return new Promise((resolve, reject) => {
@@ -53,4 +53,10 @@ export const handleRegister = (formData, dispatch) => {
         reject(error)
       })
   })
+}
+
+export const handleLogout = (dispatch) => {
+  sessionStorage.removeItem('user')
+
+  dispatch({ type: LOGOUT_USER })
 }
