@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
-import { UserContext } from '../context/userContext'
+import React from 'react'
 import PropTypes from 'prop-types'
 function QuestionCard({question}) {
-  const { state } = useContext(UserContext)
+  // const { state } = useContext(UserContext)
+  const user = JSON.parse(sessionStorage.getItem('user'))
 
   return (
     <article className="flex select-none flex-col gap-4 md:rounded-md border md:shadow-md p-4">
@@ -15,7 +15,7 @@ function QuestionCard({question}) {
         <p className="text-center text-gray-500">{question.content}</p>
       </div>
       <div className="flex h-8 flex-row gap-6">
-        {state.data.email === question.owner.email ? <>
+        {user.email === question.owner?.email ? <>
           <button className="flex-1 rounded bg-teal-400 text-center text-white hover:bg-teal-500">Edit</button>
           <button className="flex-1 rounded bg-red-400 text-center text-white hover:bg-red-500">Delete</button>
         </> : <>
