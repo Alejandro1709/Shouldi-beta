@@ -3,6 +3,7 @@ import moment from 'moment'
 import { UserContext } from '../context/userContext'
 import { handleDeleteQuestion } from '../actions/questionActions'
 import PropTypes from 'prop-types'
+import { Link } from 'wouter'
 function QuestionCard({question}) {
   const { dispatch } = useContext(UserContext)
 
@@ -47,7 +48,7 @@ function QuestionCard({question}) {
       </div>
       <div className="flex h-8 flex-row gap-6">
         {user.email === question.owner?.email ? <>
-          <button className="flex-1 rounded bg-teal-400 text-center text-white hover:bg-teal-500">Edit</button>
+          <Link to={`/${question.slug}/edit`} className="flex-1 flex items-center justify-center rounded bg-teal-400 text-center text-white hover:bg-teal-500">Edit</Link>
           <button className="flex-1 rounded bg-red-400 text-center text-white hover:bg-red-500" onClick={deleteQuestionHandler}>Delete</button>
         </> : <>
           <button className="flex-1 rounded bg-teal-400 text-center text-white hover:bg-teal-500">Yes ({question.upvotes})</button>

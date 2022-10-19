@@ -23,6 +23,7 @@ function App() {
           <Route path='/' component={FeedPage} />
           <Route path='/login' component={LoginPage} />
           <Route path='/register' component={RegisterPage} />
+          <Route path='/:slug/edit'>Edit</Route>
         </div>
       </ModalProvider>
     </Container>
