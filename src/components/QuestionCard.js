@@ -1,15 +1,20 @@
 import React from 'react'
+import moment from 'moment'
 import PropTypes from 'prop-types'
 function QuestionCard({question}) {
   // const { state } = useContext(UserContext)
   const user = JSON.parse(sessionStorage.getItem('user'))
+
+  let date = question.createdAt.substring(0, 10).replaceAll('-', '')
 
   return (
     <article className="flex select-none flex-col gap-4 md:rounded-md border md:shadow-md p-4">
       <div className="flex items-center gap-2 justify-between">
         <span className="text-sm text-teal-400">@{question.owner.username ? question.owner.username : 'username'}</span>
         <p className="font-semibold text-sm md:text-lg text-center">{question.title}</p>
-        <span className="text-sm text-gray-400">2 hours ago</span>
+        <span className="text-sm text-gray-400">
+          {moment(date, 'YYYYMMDD').fromNow()}
+        </span>
       </div>
       <div className="flex items-center justify-center">
         <p className="text-center text-gray-500">{question.content}</p>
