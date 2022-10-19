@@ -1,20 +1,28 @@
 import React, { useState, useContext } from 'react'
 import { UserContext } from '../context/userContext'
 import { LOGOUT_USER } from '../constants/userConstants'
-import { Link } from 'wouter'
+import { Link, useLocation } from 'wouter'
 import PropTypes from 'prop-types'
 
 function LoggedLinks({dispatch}) {
 
+  const [, setLocation] = useLocation()
+
   LoggedLinks.propTypes = {
     dispatch: PropTypes.func.isRequired
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem('user')
+    dispatch({ type: LOGOUT_USER })
+    setLocation('/login')
   }
 
   return <>
     <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
       Feed
     </Link>
-    <button className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" onClick={() => dispatch({ type: LOGOUT_USER })}>
+    <button className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" onClick={handleLogout}>
       Logout
     </button>
   </>
