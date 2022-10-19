@@ -6,6 +6,7 @@ import { handleFetchQuestions } from '../actions/questionActions'
 const initialState = {
   status: 'idle',
   data: [],
+  current: null,
   error: null,
 }
 
